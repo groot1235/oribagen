@@ -1,0 +1,26 @@
+import {
+  task
+} from "../chunk-VDSBBHJK.mjs";
+import "../chunk-HP3UZ6CG.mjs";
+import "../chunk-ULFOQYJ2.mjs";
+import "../chunk-USHNXJ63.mjs";
+import "../chunk-QXVUUOX6.mjs";
+import "../chunk-DHADIA3R.mjs";
+import {
+  __name,
+  init_esm
+} from "../chunk-244PAGAH.mjs";
+
+// trigger/example.ts
+init_esm();
+var myTask = task({
+  id: "hello-world",
+  run: /* @__PURE__ */ __name(async (payload) => {
+    console.log(payload.message);
+    return { success: true };
+  }, "run")
+});
+export {
+  myTask
+};
+//# sourceMappingURL=example.mjs.map
