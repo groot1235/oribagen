@@ -1,8 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs"
-import { shadcn } from "@clerk/ui/themes"
+import { shadcn } from "@clerk/themes"
 import { Geist, Geist_Mono } from "next/font/google"
 
-import "@clerk/ui/themes/shadcn.css"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
