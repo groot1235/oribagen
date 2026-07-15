@@ -1,0 +1,104 @@
+{
+  "build": {
+  },
+  "cliPackageVersion": "4.5.4",
+  "config": {
+    "dirs": [
+      "./trigger"
+    ],
+    "project": "proj_bugdtoxbzsteaqurjjls"
+  },
+  "configPath": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-qJlYdZ\\trigger.config.mjs",
+  "contentHash": "2a1bbd0835f86cb0efd8874643a624df",
+  "customConditions": [
+  ],
+  "deploy": {
+    "env": {
+    }
+  },
+  "environment": "dev",
+  "externals": [
+    {
+      "name": "import-in-the-middle",
+      "version": "3.3.1"
+    }
+  ],
+  "files": [
+    {
+      "entry": "trigger/example.ts",
+      "out": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-qJlYdZ\\trigger\\example.mjs"
+    }
+  ],
+  "indexWorkerEntryPoint": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-qJlYdZ\\node_modules\\trigger.dev\\dist\\esm\\entryPoints\\dev-index-worker.mjs",
+  "otelImportHook": {
+    "include": [
+    ]
+  },
+  "outputHashes": {
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-244PAGAH.mjs": "MKUfkr/RxtE",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-244PAGAH.mjs.map": "5cjM5D5eV/w",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-DHADIA3R.mjs": "4pGLJiEkng0",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-DHADIA3R.mjs.map": "5MmBxezu70A",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-HM7AC2ZM.mjs": "C9jhV09+ubo",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-HM7AC2ZM.mjs.map": "4O5TFR30RFQ",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-HP3UZ6CG.mjs": "j8osUdNziSI",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-HP3UZ6CG.mjs.map": "F9FuH0FYsUA",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-QXVUUOX6.mjs": "c1tpEjhYSmo",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-QXVUUOX6.mjs.map": "vybEQwC1jsk",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-ULFOQYJ2.mjs": "Whf/QcWyhUs",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-ULFOQYJ2.mjs.map": "1c32HW0ILlw",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-USHNXJ63.mjs": "RkI7ln77K/4",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-USHNXJ63.mjs.map": "LMPzUuAiOIM",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-W6E5Q5TY.mjs": "YnG2+vSnUtc",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-W6E5Q5TY.mjs.map": "Oo2DrdbfGd8",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-W6NSUMFK.mjs": "TJgru7wd+KE",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\chunk-W6NSUMFK.mjs.map": "i7veyzoAIQA",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\crypto.node-FURLATZW.mjs": "zGJ8Kk+9yxY",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\crypto.node-FURLATZW.mjs.map": "0b4tlwmkM3g",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\esm-3JMIGGOE.mjs": "26nm/p6TwVs",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\esm-3JMIGGOE.mjs.map": "CSvtQ8IwLEk",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-bsd-4T4IHQHS.mjs": "55YOCSt0eF8",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-bsd-4T4IHQHS.mjs.map": "a+ojhatqxdQ",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-darwin-7HJQGT4I.mjs": "79G23J6GVmQ",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-darwin-7HJQGT4I.mjs.map": "+IB6rybrE78",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-linux-Z65YT226.mjs": "2BnyXEaKbTA",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-linux-Z65YT226.mjs.map": "gLCTHdQ0lc4",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-unsupported-WGZGXDR6.mjs": "yVsGhhppy5k",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-unsupported-WGZGXDR6.mjs.map": "Ny6hJ0CVZTg",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-win-AUIVDZN5.mjs": "eHMJ8yApJ6E",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\getMachineId-win-AUIVDZN5.mjs.map": "V5cCd6OL6VU",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\node_modules\\trigger.dev\\dist\\esm\\entryPoints\\dev-index-worker.mjs": "vEgbVSjs5Q4",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\node_modules\\trigger.dev\\dist\\esm\\entryPoints\\dev-index-worker.mjs.map": "jN/3qWqTBsc",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\node_modules\\trigger.dev\\dist\\esm\\entryPoints\\dev-run-worker.mjs": "T38xKOUvTXc",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\node_modules\\trigger.dev\\dist\\esm\\entryPoints\\dev-run-worker.mjs.map": "kzCTrYFD4Dk",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\s2s-36GDDYDQ.mjs": "L3Zn2ZMSZoQ",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\s2s-36GDDYDQ.mjs.map": "wpjYAYzKPHM",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\trigger.config.mjs": "Wiyxc2rlSVk",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\trigger.config.mjs.map": "/uhKf+JSheg",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\trigger\\example.mjs": "FatEe9TSbJY",
+    "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-9QGp4S\\trigger\\example.mjs.map": "1uyT4WgkmDU"
+  },
+  "outputPath": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-qJlYdZ",
+  "packageVersion": "4.5.4",
+  "runWorkerEntryPoint": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-qJlYdZ\\node_modules\\trigger.dev\\dist\\esm\\entryPoints\\dev-run-worker.mjs",
+  "runtime": "node",
+  "sources": {
+    "package.json": {
+      "contentHash": "336b98d364022bc6da71a018a70d5c63",
+      "contents": "eJx1VNtu4yAQfa/Uf7D8WBViO056eerD7l9UKxGYOmwweIex27Tqv68wtkPS9g3OmduZGfi4vsqy3IoW8scsd7jTogGb347wAOi1s4EpeMHLCaZjN1q3TvUGJrBDPQgKOGEPEfMSdUc+f8w+wj3LcgVD8LTwRlk43074rtdGLUy8zZwngbRw8TZzRtuRAj+eZvjFYStGokMg0oAZY6+oCbLn/OZmdcM/yN+Sf/t8zhenIEvuQR6CH3mZMWbd71ZTHgw+oyQFHVgFVmpIdT3thAfW6xWCkGPiPyXf8mIJ/iQN4GEVJPz1I3/HN7y8vzSgPbQQDSpe883dycCCs0qQCKlWHnAANOD9lKxMk/m9UNImxRS8mscXeELdNIBcwRCN2N65QwxV8w2vvzf1auzNuYU0wns2CNTCSmCip71DTccp712SVxr/NkkrU7iNcUcVJ1gJAvZi56rqRKBC/f5ugB30LG9d8vIr77Cd+HrDq4WGdmcEkwJd78GwU5vuz2ambdcTc9RNxdVJCNNLrYCl467SCsOgA15uecW3ZzBLZlzwOmGXaOUDr5IWxxEpcWSdlgfAmDB5kicb1/7oj+D1u9gZYJ2wYOa+llUiC0HuBVLk1vw+URR3anZap4yzdiqq4gU/rSwJbV61VawFbGCKmXaYXpmwug2Dlssmp23srf7XAwv/k2cNWEBBDqciwmqdPc3h1w+vcy5Eer/qnKc5Wbrnxw78yjoV66yKSyoZ9cO33Nz8lJ/+pYBegkw6+6Ib9sOmzB/XMon1F4p1pm+0ZYm6aanSuV2yJ83J0/7m5Y/Kxg98JDex1ddXn9dX/wFB5Zs5"
+    },
+    "trigger.config.ts": {
+      "contentHash": "6f52251983256d2c8130c85a5f2a4d6c",
+      "contents": "eJxVjUEKwjAQRfeB3GHISqG0rly0G0FvISKpmYTUNqmTiRRL7y4tbtx9Hu/x/TBGYpjBoPUBzzFY72ABS3EAdWLyziGVBt9VMk/VSCEFTltj0Orc81+5m6UAGCl2+OAa1LrubXaG49R+EqN+Zeq6PqliFY2nVMNVldXvSN02Pujpkkmzj6GG46GQYtk3UnwBYAk5EA=="
+    },
+    "trigger/example.ts": {
+      "contentHash": "ee2de4e7479a8f1c57a0cb65c9d9971b",
+      "contents": "eJxNUD1rwzAQ3Q3+D6+eHFCTQMnikNKhQ/cWOgv77ArLd0aSEwfj/16kupBFQnofd++ZYRQXsMBK15FTCNr3CjdtAla0TgYUb8GZCO4buh580xfnPMszmpOyFvYBP2StfIuzzZf2PS7JplzyDDBNhSLhz7dIKFT8PRzwSQGaIWMwwtpi0PP75HR8IQhGR1fikJz83yZuYjbcwXBDrWETyN6j2YOywsvxqJJ9kBE0Uz2FqNFtIBdBeKo9yhMGw34HaVHLME6BopObuIL2d65RjvpuRTcVJu5ZbqywoA4z1h0ur0jZsNW2t9KVxUcMqZBSPhWRvlmoTZd6iyqd+o3HvhVXLnEn4cZXOD3SHIXJ8f8oYCDvdUcVitRyrMD/0NYosMZrVXm27s6/PKqUwg=="
+    },
+    "tsconfig.json": {
+      "contentHash": "f031e1bf14375f11567de3bc872ca62b",
+      "contents": "eJxtUU1rAjEQvQv+h5DjorttLwVPheKhUim0R5GS3Uw1NV8ks3aL+N9LEne7Bk/JvDfvZV7mNJ0QQhujrJDg3iwKoz1dkFPACaHI3A6QLghdfjzc3T/S2YWQoqYLsqHcKDoj4SgFgmO1hFCD19Ah3fbtTErzswrO6FroUX8Q9lXUz3toDjmFTjSYgdoslchB8GvDWwkvGsEZm7EqciHAZaRr4h28kW1IHVrqVnMJbuhxgT3Cyhu97n3G5sIbyRB4IvN0374Lpg5Yg/NQDDLdOFCgkclMYmW7E3EBm4SQfhMpP1MxSgzS4+d0Gb7aMtyPVkgIfaqKuKuyKug2oVF0jpIwjmw5/D8a/eegjyUv0Q9jB7RsjP4SuzFcFFVxo+6uATXqKINThb8WfJWrE8fhmPGBThEpdMO8VBsOn+ry/dvp5Dyd/AEd7r1C"
+    }
+  },
+  "target": "dev"
+}
