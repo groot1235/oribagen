@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server"
 import { notFound } from "next/navigation"
+import { ReactFlowProvider } from "@xyflow/react"
 
 import { liveblocks } from "@/lib/liveblocks"
 import { getWorkflow } from "@/features/workflows/data"
@@ -18,6 +19,8 @@ export default async function Page({
   const workflow = await getWorkflow(orgId, id)
   if (!workflow) notFound()
 
+  // Rooms are private by default under ID-token auth. Grant write access to the
+  // owning org, matching the `groupIds: [orgId]` issued by the auth endpoint.
   await liveblocks.getOrCreateRoom(id, {
     organizationId: orgId,
     defaultAccesses: [],
@@ -29,17 +32,13 @@ export default async function Page({
     },
   })
 
-  // Always update the room permissions to guarantee the current active organization
-  // has write access, in case the room already exists but has outdated permissions.
-  await liveblocks.updateRoom(id, {
-    groupsAccesses: {
-      [orgId]: ["room:write"],
-    },
-  })
-
+  // The canvas and the sidebar's node palette live in separate components, so a
+  // single ReactFlowProvider wraps both to give them one shared React Flow store.
   return (
     <Room roomId={id}>
-      <WorkflowShell workflowId={id} />
+      <ReactFlowProvider>
+        <WorkflowShell workflowId={id} />
+      </ReactFlowProvider>
     </Room>
   )
 }
