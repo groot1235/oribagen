@@ -1,0 +1,32 @@
+{
+  "configPath": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-C4PGVK\\trigger.config.mjs",
+  "customConditions": [
+  ],
+  "prompts": [
+  ],
+  "queues": [
+  ],
+  "runtime": "node",
+  "runtimeVersion": "24.16.0",
+  "skills": [
+  ],
+  "tasks": [
+    {
+      "entryPoint": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-C4PGVK\\features\\workflows\\tasks\\run-workflow.mjs",
+      "filePath": "features/workflows/tasks/run-workflow.ts",
+      "id": "run-workflow",
+      "maxDuration": 60
+    },
+    {
+      "entryPoint": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-C4PGVK\\trigger\\example.mjs",
+      "filePath": "trigger/example.ts",
+      "id": "hello-world",
+      "maxDuration": 300
+    }
+  ],
+  "timings": {
+    "features/workflows/tasks/run-workflow.ts": 59.46350000000001,
+    "trigger/example.ts": 15.367399999999975
+  },
+  "workerEntryPoint": "C:\\Users\\athar\\OneDrive\\Desktop\\orbiagen\\.trigger\\tmp\\build-C4PGVK\\node_modules\\trigger.dev\\dist\\esm\\entryPoints\\dev-run-worker.mjs"
+}

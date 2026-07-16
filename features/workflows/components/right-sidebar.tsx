@@ -25,7 +25,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 
-import { deleteWorkflowAction } from "@/features/workflows/actions"
+import { deleteWorkflowAction, runWorkflowAction } from "@/features/workflows/actions"
+import { validateGraph } from "@/features/workflows/lib/validate-graph"
 import {
   nodeRegistry,
   type NodeDefinition,
@@ -120,7 +121,7 @@ function Field({
 
 // The Editor tab: one input per field on the selected node, or an empty state.
 function Inspector({ node }: { node: StepNodeType | undefined }) {
-  const { updateNodeData } = useReactFlow<StepNodeType>()
+  const { updateNodeData, deleteElements } = useReactFlow<StepNodeType>()
 
   if (!node) {
     return (
@@ -156,6 +157,18 @@ function Inspector({ node }: { node: StepNodeType | undefined }) {
               />
             </div>
           ))
+        )}
+
+        {node.data.type !== "start" && (
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => deleteElements({ nodes: [{ id: node.id }] })}
+            className="mt-4 gap-2 text-xs"
+          >
+            <Trash2 className="size-3.5" />
+            Delete step
+          </Button>
         )}
       </div>
     </Section>
@@ -219,7 +232,7 @@ function Palette() {
   return (
     <Section title="Toolbar">
       <Accordion
-        type="multiple"
+        multiple
         defaultValue={sections.map((s) => s.kind)}
         className="px-3 py-2"
       >
@@ -264,11 +277,13 @@ function ActionsMenu({ workflowId }: { workflowId: string }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button size="icon" variant="ghost">
-          <MoreHorizontal />
-        </Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger
+        render={
+          <Button size="icon" variant="ghost">
+            <MoreHorizontal />
+          </Button>
+        }
+      />
       <DropdownMenuContent align="start" className="min-w-48">
         <DropdownMenuItem
           variant="destructive"
@@ -293,13 +308,27 @@ function ActionsMenu({ workflowId }: { workflowId: string }) {
 }
 
 // Kicks off a run of the current workflow.
-function RunButton() {
+function RunButton({ workflowId }: { workflowId: string }) {
+  const { getNodes, getEdges } = useReactFlow<StepNodeType>()
+  const [isPending, startTransition] = useTransition()
+
   return (
     <Button
       size="sm"
       variant="secondary"
+      disabled={isPending}
       onClick={() => {
         // TODO: validate the graph and run the workflow (toggle to Stop while running).
+        const graph = { nodes: getNodes(), edges: getEdges() }
+        const problems = validateGraph(graph)
+        if (problems.length > 0) {
+          toast.error(problems[0])
+          return
+        }
+
+        startTransition(async () => {
+          await runWorkflowAction({ id: workflowId, graph })
+        })
       }}
     >
       <Play fill="primary" />
@@ -336,7 +365,7 @@ export function RightSidebar({ workflowId }: { workflowId: string }) {
       <Tabs value={tab} onValueChange={setTab} className="size-full gap-0">
         <div className="flex items-center justify-between border-b border-border p-2">
           <ActionsMenu workflowId={workflowId} />
-          <RunButton />
+          <RunButton workflowId={workflowId} />
         </div>
         <TabsList className="m-2 w-fit bg-background">
           <TabsTrigger
