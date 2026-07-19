@@ -26,6 +26,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 
 import { deleteWorkflowAction, runWorkflowAction } from "@/features/workflows/actions"
+import { useUpstreamConnections } from "@/features/workflows/hooks/use-upstream-connections"
 import { validateGraph } from "@/features/workflows/lib/validate-graph"
 import {
   nodeRegistry,
@@ -93,10 +94,14 @@ function Field({
   field,
   value,
   onChange,
+  onFocus,
 }: {
   field: NodeField
   value: string
   onChange: (value: string) => void
+  // Fires when the field gains focus, so the Connections chips know which
+  // field a clicked token should land in.
+  onFocus: () => void
 }) {
   if (field.multiline) {
     return (
@@ -104,6 +109,7 @@ function Field({
         id={field.key}
         value={value}
         placeholder={field.placeholder}
+        onFocus={onFocus}
         onChange={(e) => onChange(e.target.value)}
       />
     )
@@ -114,6 +120,7 @@ function Field({
       id={field.key}
       value={value}
       placeholder={field.placeholder}
+      onFocus={onFocus}
       onChange={(e) => onChange(e.target.value)}
     />
   )
@@ -121,7 +128,13 @@ function Field({
 
 // The Editor tab: one input per field on the selected node, or an empty state.
 function Inspector({ node }: { node: StepNodeType | undefined }) {
-  const { updateNodeData, deleteElements } = useReactFlow<StepNodeType>()
+  const { updateNodeData } = useReactFlow<StepNodeType>()
+  // Outputs of every node upstream of the selected one, as insertable {{ }}
+  // tokens. Empty when nothing feeds into this node.
+  const connections = useUpstreamConnections()
+  // The field a clicked chip inserts into — whichever was focused most recently.
+  // Reset per selected node since this component is keyed by node id.
+  const [activeFieldKey, setActiveFieldKey] = useState<string | null>(null)
 
   if (!node) {
     return (
@@ -133,6 +146,16 @@ function Inspector({ node }: { node: StepNodeType | undefined }) {
 
   const { type, title, values } = node.data
   const def: NodeDefinition = nodeRegistry[type]
+
+  // Untouched fields fall back to the first one, so a chip always has a home.
+  const targetKey = activeFieldKey ?? def.fields[0]?.key
+
+  const insertToken = (token: string) => {
+    if (!targetKey) return
+    updateNodeData(node.id, {
+      values: { ...values, [targetKey]: (values[targetKey] ?? "") + token },
+    })
+  }
 
   return (
     <Section title={title} icon={<NodeIcon type={type} />}>
@@ -149,6 +172,7 @@ function Inspector({ node }: { node: StepNodeType | undefined }) {
               <Field
                 field={field}
                 value={values[field.key] ?? ""}
+                onFocus={() => setActiveFieldKey(field.key)}
                 onChange={(value) => {
                   updateNodeData(node.id, {
                     values: { ...values, [field.key]: value },
@@ -159,16 +183,25 @@ function Inspector({ node }: { node: StepNodeType | undefined }) {
           ))
         )}
 
-        {node.data.type !== "start" && (
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => deleteElements({ nodes: [{ id: node.id }] })}
-            className="mt-4 gap-2 text-xs"
-          >
-            <Trash2 className="size-3.5" />
-            Delete step
-          </Button>
+        {/* Available upstream outputs — click to drop a token into the last
+            focused field (or the first field if none has been touched). */}
+        {connections.length > 0 && (
+          <div className="flex flex-col gap-1.5">
+            <Label className="text-xs">Connections</Label>
+            <div className="flex flex-wrap gap-1.5">
+              {connections.map((connection) => (
+                <button
+                  key={connection.token}
+                  type="button"
+                  onClick={() => insertToken(connection.token)}
+                  className="flex max-w-full items-center gap-1.5 rounded-md border border-border bg-card px-1.5 py-1 text-xs hover:bg-accent"
+                >
+                  <NodeIcon type={connection.nodeType} className="size-4" />
+                  <span className="truncate">{connection.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         )}
       </div>
     </Section>
@@ -232,7 +265,7 @@ function Palette() {
   return (
     <Section title="Toolbar">
       <Accordion
-        multiple
+        type="multiple"
         defaultValue={sections.map((s) => s.kind)}
         className="px-3 py-2"
       >
@@ -277,13 +310,11 @@ function ActionsMenu({ workflowId }: { workflowId: string }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        render={
-          <Button size="icon" variant="ghost">
-            <MoreHorizontal />
-          </Button>
-        }
-      />
+      <DropdownMenuTrigger asChild>
+        <Button size="icon" variant="ghost">
+          <MoreHorizontal />
+        </Button>
+      </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="min-w-48">
         <DropdownMenuItem
           variant="destructive"
@@ -385,7 +416,7 @@ export function RightSidebar({ workflowId }: { workflowId: string }) {
           <Palette />
         </TabsContent>
         <TabsContent value="editor" className="flex min-h-0 flex-col">
-          <Inspector node={selected} />
+          <Inspector key={selected?.id} node={selected} />
         </TabsContent>
       </Tabs>
     </ResizablePanel>
