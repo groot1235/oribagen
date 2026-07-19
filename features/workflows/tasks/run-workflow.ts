@@ -1,12 +1,21 @@
 import toposort from "toposort"
-import { logger, task } from "@trigger.dev/sdk"
+import { logger, metadata, task } from "@trigger.dev/sdk"
 import { Stagehand } from "@browserbasehq/stagehand"
 import { nodeExecutors } from "@/features/workflows/nodes/node-executors"
+import type { StepNodeType } from "@/features/workflows/nodes/node-registry"
 import {
   interpolate,
   type NodeOutputs,
 } from "@/features/workflows/lib/interpolate"
 import { getWorkflow } from "@/features/workflows/data"
+import type { WorkflowGraph } from "@/features/workflows/lib/validate-graph"
+
+// One entry per node the run will walk, published to the run's metadata under
+// "steps" so the canvas can watch each node move through its lifecycle live.
+export type RunStep = {
+  nodeId: string
+  status: "pending" | "running" | "done" | "failed"
+}
 
 // The Trigger.dev task the Run button fires. It loads the saved graph, works out
 // what order the nodes should run in, and walks them. For now each node just
@@ -18,8 +27,8 @@ export const runWorkflowTask = task({
     const workflow = await getWorkflow(orgId, workflowId)
     if (!workflow?.graph) throw new Error(`Workflow ${workflowId} has no graph`)
 
-    const { nodes, edges } = workflow.graph
-    const byId = new Map(nodes.map((n) => [n.id, n]))
+    const { nodes, edges } = workflow.graph as WorkflowGraph
+    const byId = new Map<string, StepNodeType>(nodes.map((n) => [n.id, n]))
 
     // Run only connected nodes — anything touching an edge. Orphans dropped on
     // the canvas are skipped. toposort orders them and throws on a cycle.
@@ -32,6 +41,15 @@ export const runWorkflowTask = task({
       .filter((id) => connected.has(id))
 
     logger.log(`Running workflow ${workflow.name}`, { steps: order.length })
+
+    // Seed every step as "pending" up front and publish, so the canvas can render
+    // the full run as a list of spinners before any node starts. We mutate these
+    // entries in place and re-publish on every status change below.
+    const steps: RunStep[] = order.map((nodeId) => ({
+      nodeId,
+      status: "pending",
+    }))
+    metadata.set("steps", steps)
 
     // The run owns one Browserbase session, opened lazily on the first browser step
     // and reused by every later one, so the recording spans the whole flow. The
@@ -58,25 +76,49 @@ export const runWorkflowTask = task({
     // populated by the time we run it.
     const outputs: NodeOutputs = {}
 
-    for (const id of order) {
+    for (let i = 0; i < order.length; i++) {
+      const id = order[i]
+      const step = steps[i]
       const node = byId.get(id)!
       logger.log(`Running step: ${node.data.title}`)
-      // TODO: report per-node progress so the UI can watch the run live.
+
       const executor = nodeExecutors[node.data.type]
       if (!executor) continue
+
+      // Mark running before the executor and flush immediately: the "done" set
+      // below happens before the SDK's next background flush, so without forcing
+      // it here the "running" state is overwritten and the canvas never spins.
+      step.status = "running"
+      metadata.set("steps", steps)
+      await metadata.flush()
 
       // Swap {{ nodeId.path }} placeholders for upstream output before running.
       const values = Object.fromEntries(
         Object.entries(node.data.values).map(([key, text]) => [
           key,
-          interpolate({ text, outputs }),
+          interpolate({ text: text as string, outputs }),
         ])
       )
-      outputs[id] = await executor({ values, getStagehand })
+
+      try {
+        outputs[id] = await executor({ values, getStagehand })
+      } catch (error) {
+        // Flush the "failed" state before the throw unwinds the run: a thrown run
+        // returns no output, so this flushed metadata is the only way the canvas
+        // ever learns which node failed.
+        step.status = "failed"
+        metadata.set("steps", steps)
+        await metadata.flush()
+        await stagehand?.close()
+        throw error
+      }
+
+      step.status = "done"
+      metadata.set("steps", steps)
     }
 
     await stagehand?.close()
 
-    return { steps: order.length }
+    return { steps }
   },
 })

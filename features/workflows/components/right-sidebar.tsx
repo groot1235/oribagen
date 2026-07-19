@@ -265,7 +265,7 @@ function Palette() {
   return (
     <Section title="Toolbar">
       <Accordion
-        type="multiple"
+        multiple
         defaultValue={sections.map((s) => s.kind)}
         className="px-3 py-2"
       >
@@ -310,11 +310,13 @@ function ActionsMenu({ workflowId }: { workflowId: string }) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button size="icon" variant="ghost">
-          <MoreHorizontal />
-        </Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger
+        render={
+          <Button size="icon" variant="ghost">
+            <MoreHorizontal />
+          </Button>
+        }
+      />
       <DropdownMenuContent align="start" className="min-w-48">
         <DropdownMenuItem
           variant="destructive"
